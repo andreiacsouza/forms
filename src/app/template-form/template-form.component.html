@@ -37,4 +37,9 @@
 
     <button type="submit" class="btn btn-primary"
       [disabled]="!f.valid">Submit</button>
+
+  <!-- Se for colocar o programa em produção, basta deletar o código abaixo -->
+    <app-form-debug [form]="f"></app-form-debug>
 </form>
+
+
