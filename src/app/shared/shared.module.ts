@@ -4,17 +4,24 @@ import { CampoControlErroComponent } from './campo-control-erro/campo-control-er
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormDebugComponent } from './form-debug/form-debug.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule
+    HttpModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     FormDebugComponent,
     CampoControlErroComponent
   ],
   exports: [
+    CommonModule,
+    HttpModule,
+    FormsModule,
+    ReactiveFormsModule,
     FormDebugComponent,
     CampoControlErroComponent
   ],
