@@ -1,3 +1,5 @@
+import { EstadoBr } from './../shared/model/estado-br';
+import { DropdownService } from './../shared/services/dropdown.service';
 import { Http } from '@angular/http';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -9,18 +11,21 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./data-form.component.css']
 })
 export class DataFormComponent implements OnInit {
-
   formulario: FormGroup;
+  estados: EstadoBr[];
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: Http
-  ) { }
+    private http: Http,
+    private dropdownService: DropdownService) { }
 
   ngOnInit() {
 
+    this.dropdownService.getEstadosBr()
+      .subscribe(dados => {this.estados = dados; console.log(dados); });
+
     /*this.formulario = new FormGroup({
-      nome: new FormControl(null), 
+      nome: new FormControl(null),
       email: new FormControl(null),
 
       endereco: new FormGroup({
@@ -44,7 +49,7 @@ export class DataFormComponent implements OnInit {
     });
 
     // Validators.minLength(3), Validators.maxLength(20)
-    // For angular 2 
+    // For angular 2
     // Validators.pattern("[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?")
   }
 
@@ -56,9 +61,9 @@ export class DataFormComponent implements OnInit {
       .map(res => res)
       .subscribe(dados => {
         console.log(dados);
-        //reseta o form
-        //this.formulario.reset();
-        //this.resetar();
+        /*reseta o form
+        this.formulario.reset();
+        this.resetar();*/
     },
     (error: any) => alert('erro')
   );
@@ -78,8 +83,8 @@ verificaValidacoesForm(formGroup: FormGroup){
     }
     });
 }
-    
-  resetar(){
+
+  resetar() {
     this.formulario.reset();
   }
 
@@ -102,11 +107,11 @@ verificaValidacoesForm(formGroup: FormGroup){
   }
 
   consultaCEP(){
-   
+
     let cep = this.formulario.get('endereco.cep').value;
 
     cep = cep.replace(/\D/g, '');
-    
+
     //Verifica se campo cep possui valor informado.
     if (cep != "") {
       //Expressão regular para validar o CEP.
@@ -125,7 +130,7 @@ verificaValidacoesForm(formGroup: FormGroup){
   }
 
   populaDadosForm(dados){
-    
+
     this.formulario.patchValue({
       endereco: {
         rua: dados.logradouro,
@@ -153,6 +158,6 @@ verificaValidacoesForm(formGroup: FormGroup){
       }
     });
   }
-  
+
 
 }
